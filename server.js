@@ -10,24 +10,34 @@ if (process.env.NODE_ENV != "production"){
 const express = require("express");
 const connectToDb  = require("./config/connectToDb");
 const Interview  = require("./models/interview");
-const usersController = require("./controllers/usersController")
+const usersController = require("./controllers/usersController");
+const cookieParser = require("cookie-parser");
+const requireAuth = require("./middleware/requireAuth");
+
 
 // crete an express app
 const app = express();
 
 //configure express app 
 app.use(express.json());
+app.use(cors({
+    origin: true,
+    credentials: true,
+}));
+app.use(cookieParser());
+
 
 // connect to database
 connectToDb();
 
 // Routing
 app.get("/", (req, res) => {
-    res.send("App is running...")
+    res.send("Api is running...")
 });
 app.post("/signup", usersController.signup);
 app.post("/login", usersController.login);
 app.get("/logout", usersController.logout);
+app.get("/check-auth", requireAuth, usersController.checkAuth);
 app.get("/getinterviews", async (req, res) => {
     // find the interviews
   const interviews = await Interviews.find();
