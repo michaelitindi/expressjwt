@@ -25,6 +25,13 @@ app.get("/", (req, res) => {
     res.send("App is running...")
 });
 
+app.get("/getinterviews", async (req, res) => {
+    // find the interviews
+  const interviews = await Interviews.find();
+   //respond with them
+   res.json({ interviews: interviews })
+})
+
 app.post("/submitinterview", async (req, res) => {
 //get data of off req body
 const title = req.body.title;
