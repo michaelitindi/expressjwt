@@ -10,6 +10,7 @@ if (process.env.NODE_ENV != "production"){
 const express = require("express");
 const connectToDb  = require("./config/connectToDb");
 const Interview  = require("./models/interview");
+const usersController = require("./controllers/usersController")
 
 // crete an express app
 const app = express();
@@ -24,7 +25,9 @@ connectToDb();
 app.get("/", (req, res) => {
     res.send("App is running...")
 });
-
+app.post("/signup", usersController.signup);
+app.post("/login", usersController.login);
+app.get("/logout", usersController.logout);
 app.get("/getinterviews", async (req, res) => {
     // find the interviews
   const interviews = await Interviews.find();
