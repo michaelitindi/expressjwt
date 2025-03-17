@@ -30,7 +30,7 @@ async function login(req, res){
     if (!passwordMatch) return res.sendStatus(401);
 
     const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
-    const token = jwt.sign({sub: user._id, exp}, process.env.SECRET);
+    const token = jwt.sign({encode: user._id, exp}, process.env.SECRET);
     res.cookie("Authorization", token, {
         expires: new Date(exp),
         httpOnly: true,
