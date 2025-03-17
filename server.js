@@ -32,6 +32,14 @@ app.get("/getinterviews", async (req, res) => {
    res.json({ interviews: interviews })
 })
 
+app.get("/getinterviews/:id", async (req, res) => {
+    //get id of url 
+    const interviewId = req.params.id;
+    //find the interview using that id
+    const interview = await Interview.findById(interviewId);
+    //respond with the interview
+    res.json({})
+})
 app.post("/submitinterview", async (req, res) => {
 //get data of off req body
 const title = req.body.title;
