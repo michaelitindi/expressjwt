@@ -20,10 +20,7 @@ const app = express();
 
 //configure express app 
 app.use(express.json());
-app.use(cors({
-    origin: true,
-    credentials: true,
-}));
+
 app.use(cookieParser());
 
 
