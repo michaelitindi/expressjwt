@@ -11,6 +11,7 @@ const express = require("express");
 const connectToDb  = require("./config/connectToDb");
 const Interview  = require("./models/interview");
 const usersController = require("./controllers/usersController");
+const uploadContoller = require("./controllers/uploadController");
 const cookieParser = require("cookie-parser");
 const requireAuth = require("./middleware/requireAuth");
 
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 });
 app.post("/signup", usersController.signup);
 app.post("/login", usersController.login);
+app.post("/upload", uploadContoller.uploadToCloudinary);
 app.get("/logout", usersController.logout);
 app.get("/check-auth", requireAuth, usersController.checkAuth);
 app.get("/getinterviews", async (req, res) => {
