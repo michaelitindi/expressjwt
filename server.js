@@ -10,6 +10,7 @@ if (process.env.NODE_ENV != "production"){
 const express = require("express");
 const connectToDb  = require("./config/connectToDb");
 const Interview  = require("./models/interview");
+const Evaluation = require("./models/evaluation");
 const usersController = require("./controllers/usersController");
 const uploadContoller = require("./controllers/uploadController");
 const cookieParser = require("cookie-parser");
@@ -69,6 +70,25 @@ const interview = await Interview.create({
 res.json({ interview: interview});
 
 });
+app.post("/submitevaluation", async (req, res) => {
+    //get data of off req body
+    const interviewtitle = req.body.interviewtitle;
+    const userid = req.body.userid;
+    const score = req.body.score;
+    const comments = req.body.comments;
+    
+    //create interview
+    const evaluation = await Evaluation.create({
+        interviewtitle,
+        userid,
+        score,
+        comments,
+    });
+    
+    //respond with interview
+    res.json({ evaluation: evaluation});
+    
+    });
 
 //start our server
 app.listen(process.env.PORT);
